@@ -61,7 +61,7 @@ abundance.signif <- function(data, group, by = data.frame(group = c(), variable.
     } else if ('variable.2' %in% colnames(cdt) == FALSE) {
       data_anova <- cdt %>% aov(formula = abundance ~ variable.1) %>% tidy() %>% as.data.frame()
       v1_tukey <- TukeyHSD(aov(formula = abundance ~ variable.1, data = cdt))[[1]]
-      signif_list_individual <- list(data_anova, tukey)
+      signif_list_individual <- list(data_anova, v1_tukey)
       names(signif_list_individual) <- c('anova', 'tukey')
     }
     signif_list[[list_id]] <- signif_list_individual

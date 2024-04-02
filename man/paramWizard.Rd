@@ -14,15 +14,13 @@ A user-friendly interaction interface to input parameters for cleanXpert()
 }
 \details{
 In this function, you should provide the following information:
-\enumerate{
-\item Path of row data.
-\item Path of the paramters for your isotope label.
-\item Whether default internal label should be used.
-\item (optional) Name of internal label.
-\item qc column and omitted qc column.
-\item Whether replicate with the largest shifting should be removed.
-\item (optional) The number of repeats of each group and repeats that should be removed within each group.
+1. Path of row data.
+2. Path of the paramters for your isotope label.
+3. Whether default internal label should be used.
+4. (optional) Name of internal label.
+5. qc column and omitted qc column.
+6. Whether replicate with the largest shifting should be removed.
+7. (optional) The number of repeats of each group and repeats that should be removed within each group.
 The parameters could either be import via key board typing or via external .txt file.
 For first usage, key board typing input is suggested, and a .txt file will be automatically generated.
-}
 }

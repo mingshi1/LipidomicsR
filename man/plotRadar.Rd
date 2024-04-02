@@ -31,7 +31,7 @@ plotRadar(
 )
 }
 \arguments{
-\item{data}{A dataframe storing absolute concentration or PL\% of lipids between different samples. If not, use cleanXpert() or noridx.output() + normalization.calculator()
+\item{data}{A dataframe storing absolute concentration or PL% of lipids between different samples. If not, use cleanXpert() or noridx.output() + normalization.calculator()
 to get normalized data.
 The column name should be the sample name and the row name should be the lipid type.
 The class of column name and row name should be "character". The class of values should be
@@ -39,20 +39,19 @@ The class of column name and row name should be "character". The class of values
 
 \item{pattern}{Can accept 4 values: "lipid", "CB", "sat", or "all"
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{If pattern="lipid“, a new radar diagram based on lipid type will be saved, which was named as "lipid_RadarChart.pdf"
+    If pattern="lipid“, a new radar diagram based on lipid type will be saved, which was named as "lipid_RadarChart.pdf"
 
-If pattern="CB“, a new radar diagram based on carbon number will be saved, which was named as "carbon_number_RadarChart.pdf"
+    If pattern="CB“, a new radar diagram based on carbon number will be saved, which was named as "carbon_number_RadarChart.pdf"
 
-If pattern="sat“, a new radar diagram based on the number of double bonds will be saved, which was named as "unsaturation_RadarChart.pdf"
+    If pattern="sat“, a new radar diagram based on the number of double bonds will be saved, which was named as "unsaturation_RadarChart.pdf"
 
-If pattern="all“, all three diagrams will be saved.
-}\if{html}{\out{</div>}}}
+    If pattern="all“, all three diagrams will be saved.}
 
 \item{group}{A vector defining which group the replicates belong to. Notice: the number of groups should be less than 17.}
 
-\item{max}{The maximal absolute concentration or PL\\% values of each class. The default value is 0.6.}
+\item{max}{The maximal absolute concentration or PL\% values of each class. The default value is 0.6.}
 
-\item{min}{The minimal absolute concentration or PL\\% values of each class. The default value is 0.}
+\item{min}{The minimal absolute concentration or PL\% values of each class. The default value is 0.}
 
 \item{method}{The method to select the representative value from a group, which can be "median" or "mean".
 If it equals "median", the median of the group samples will be chosen. Otherwise, the mean will be chosen to plot.}
@@ -66,7 +65,7 @@ If it equals "median", the median of the group samples will be chosen. Otherwise
 \item{cglcol}{Specifies the color of the gridlines. Default value is 1.}
 
 \item{seg}{Defines the number of gridlines. Default value is 4,
-which means 5 gridlines: "0\\%", "25\\%", "50\\%", "75\\%", and "100\\%".}
+which means 5 gridlines: "0\%", "25\%", "50\%", "75\%", and "100\%".}
 
 \item{cglwd}{Specifies the width of the gridlines. Default value is 1.}
 

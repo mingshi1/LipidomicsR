@@ -29,10 +29,8 @@ provided in a column named "Mass". Concentration should be provided in a column 
 \item{relative.mannual}{Vector, the exact channel name (if you want to define the channel of internal label mannually).}
 }
 \value{
-\enumerate{
-\item normalization.mode='both'. A list of data frames of normalization indexes of the two modes.
-\item normalization.mode='absolute' or 'relative'. A data frame of the respective normlaization index.
-}
+1. normalization.mode='both'. A list of data frames of normalization indexes of the two modes.
+2. normalization.mode='absolute' or 'relative'. A data frame of the respective normlaization index.
 }
 \description{
 An integrated function that call nor.relative() and nor.absolute(), for simplifying.

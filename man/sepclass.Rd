@@ -14,14 +14,13 @@ The class of column name and row name should be "character". The class of values
 
 \item{pattern}{Can accept 4 values: "lipid", "CB", "sat", or "all"
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{If pattern="lipid“, a new column named "lipid_type" will be added, which stores type of lipid like "PE", "LPC", and "TAG".
+    If pattern="lipid“, a new column named "lipid_type" will be added, which stores type of lipid like "PE", "LPC", and "TAG".
 
-If pattern="CB“, a new column named "carbon_number" will be added, which stores the number of carbons. For example, the carbon_number of "PC(14:0/16:1)" is 14+16=30.
+    If pattern="CB“, a new column named "carbon_number" will be added, which stores the number of carbons. For example, the carbon_number of "PC(14:0/16:1)" is 14+16=30.
 
-If pattern="sat“, a new column named "unsaturation" will be added, which stores the number of double bonds. For example, the unsaturation of "PC(14:1/16:1)" is 1+1=2.
+    If pattern="sat“, a new column named "unsaturation" will be added, which stores the number of double bonds. For example, the unsaturation of "PC(14:1/16:1)" is 1+1=2.
 
-If pattern="all“, all three columns will be added.
-}\if{html}{\out{</div>}}}
+    If pattern="all“, all three columns will be added.}
 }
 \value{
 A dataframe with new columns containing the class of lipid type, carbon number,

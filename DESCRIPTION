@@ -2,7 +2,7 @@ Package: LipidomicsR
 Type: Package
 Title: Elegant Tools for Processing and Visualization of Lipidomics
         Data
-Version: 0.1.7
+Version: 0.1.8
 Authors@R: c(person(given = "Mingshi", family = "Li", email = "mingshi.21@intl.zju.edu.cn", role = "aut"),
             person(given = "Hengyu", family = "Zhu", email = "hengyu.21@intl.zju.edu.cn", role = c("aut", "cre")))
 Maintainer: Hengyu Zhu <hengyu.21@intl.zju.edu.cn>
@@ -13,11 +13,11 @@ Imports: broom, car, ggiraph, rcompanion, tidyr, cowplot, dplyr, fmsb,
         ggplot2, ggplotify, ggrepel, pheatmap, RColorBrewer, reshape2,
         scales, stringr, tidyselect
 Depends: tidyverse
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.1
 NeedsCompilation: no
 Packaged: 2024-03-16 09:29:11 UTC; zhy11
 Author: Mingshi Li [aut, com],
   Hengyu Zhu [aut, cre]
-
 URL: https://github.com/mingshi1/LipidomicsR
 BugReports: http://github.com/mingshi1/LipidomicsR/issues
+\

@@ -37,7 +37,7 @@ heatmap(
 )
 }
 \arguments{
-\item{data}{A dataframe storing absolute concentration or PL\% of lipids between different samples. If not, use cleanXpert() or noridx.output() + normalization.calculator()
+\item{data}{A dataframe storing absolute concentration or PL% of lipids between different samples. If not, use cleanXpert() or noridx.output() + normalization.calculator()
 to get normalized data.
 The column name should be the sample name and the row name should be the lipid type.
 The class of column name and row name should be "character". The class of values should be
@@ -55,12 +55,11 @@ The input can be like c("WT","KO"). Default value is "default".}
 
 \item{type}{Can accept 3 values: "lipid", "CB", or "sat". Default value is "lipid".
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{If type="lipid“, the heatmap will divide rownames based on lipid types.
+    If type="lipid“, the heatmap will divide rownames based on lipid types.
 
-If pattern="CB“, the heatmap will divide rownames based on carbon number.
+    If pattern="CB“, the heatmap will divide rownames based on carbon number.
 
-If pattern="sat“, the heatmap will divide rownames based on the number of double bonds of a lipid type.
-}\if{html}{\out{</div>}}}
+    If pattern="sat“, the heatmap will divide rownames based on the number of double bonds of a lipid type.}
 
 \item{sel.type}{A vector controlling which types to show. If you only want to check data of "PA", "PC“, and "PE".
 You can set type="lipid", sel.type=c("PA","PC","PE")}

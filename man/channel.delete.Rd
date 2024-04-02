@@ -16,7 +16,7 @@ Edited data with no repeat channels and simplified row name.
 }
 \description{
 channel.delete select one of the channel with largest mean value out of multiple replicated LC-MS cahnnels,
-and it returns an edited data frame with no repeated channel and simplified row name.
+   and it returns an edited data frame with no repeated channel and simplified row name.
 }
 \examples{
 x1 <- c(1,1,1,1)
