@@ -30,6 +30,7 @@
 #' sepclass(data,pattern)
 #' @export
 sepclass<-function(data,pattern){
+  l=gsub("\\-.+","",rownames(data))
   dt=data.frame(x=rep(0,length(data[,1])))
   if(pattern=="lipid"){
     dt$lipid_type=gsub("\\(.+","",rownames(data))
@@ -38,14 +39,14 @@ sepclass<-function(data,pattern){
     dt=as.data.frame(dt[,-1])
     colnames(dt)="lipid_type"
   }else if(pattern=="CB"){
-    l1=stringr::str_extract_all(rownames(data),pattern = "[0-9]+\\:")
+    l1=stringr::str_extract_all(l,pattern = "[0-9]+\\:")
     cb=unlist(lapply(l1,function(x)
       sum(unlist(lapply(x,function(y) as.numeric(gsub(":","",y)))))))
     dt$carbon_number=cb
     dt=as.data.frame(dt[,-1])
     colnames(dt)="carbon_number"
   }else if(pattern=="sat"){
-    l2=stringr::str_extract_all(rownames(data),pattern = ":[0-9]")
+    l2=stringr::str_extract_all(l,pattern = ":[0-9]")
     sat=unlist(lapply(l2,function(x)
       sum(unlist(lapply(x,function(y) as.numeric(gsub(":","",y)))))))
     dt$unsaturation=sat
@@ -53,11 +54,13 @@ sepclass<-function(data,pattern){
     colnames(dt)="unsaturation"
   }else if(pattern=="all"){
     dt$lipid_type=gsub("\\(.+","",rownames(data))
-    l1=stringr::str_extract_all(rownames(data),pattern = "[0-9]+\\:")
+    dt$lipid_type=gsub("[0-9].+","",dt$lipid_type)
+    dt$lipid_type=gsub(" ","",dt$lipid_type)
+    l1=stringr::str_extract_all(l,pattern = "[0-9]+\\:")
     cb=unlist(lapply(l1,function(x)
       sum(unlist(lapply(x,function(y) as.numeric(gsub(":","",y)))))))
     dt$carbon_number=cb
-    l2=stringr::str_extract_all(rownames(data),pattern = ":[0-9]")
+    l2=stringr::str_extract_all(l,pattern = ":[0-9]")
     sat=unlist(lapply(l2,function(x)
       sum(unlist(lapply(x,function(y) as.numeric(gsub(":","",y)))))))
     dt$unsaturation=sat
@@ -69,3 +72,4 @@ sepclass<-function(data,pattern){
   data=cbind(dt,data)
   return(data)
 }
+

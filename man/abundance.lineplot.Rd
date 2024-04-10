@@ -15,7 +15,6 @@ abundance.lineplot(
   errorbar.width = 0.5,
   .xlab = "group",
   .ylab = "abundance",
-  sigf = "P-value",
   axis.title.size = 10,
   axis.title.x.vjust = 0,
   axis.title.y.vjust = 0,
@@ -24,6 +23,7 @@ abundance.lineplot(
   axis.tick.length = 0.2,
   legend.title = "",
   legend.color = "Set2",
+  color.style = "Nature",
   .legend.direction = "vertical",
   .legend.position = "right",
   main.size = 10
@@ -50,8 +50,6 @@ abundance.lineplot(
 
 \item{.ylab}{The label for the y-axis (default is 'abundance').}
 
-\item{sigf}{The type of significance in plots, can be "No Signal", "Star" or "P-value". The default value is "P-value".}
-
 \item{axis.title.size}{The size of axis title text (default is 10).}
 
 \item{axis.title.x.vjust}{The vertical adjustment parameter for x-axis title (default is 0).}
@@ -68,6 +66,9 @@ abundance.lineplot(
 
 \item{legend.color}{The color palette for the legend (default is a set of predefined colors).}
 
+\item{color.style}{The style of colors, which can be "Nature", "Science", "Lancet", "JCO", "D3", "IGV", "Star Trek", "Tron Legacy", "Rick and Morty", and "The Simpsons".
+Default value is "Nature".}
+
 \item{.legend.direction}{The direction of the legend ('horizontal' or 'vertical', default is 'vertical').}
 
 \item{.legend.position}{The position of the legend ('top', 'bottom', 'left', 'right', or NULL, default is 'right').}
@@ -75,8 +76,8 @@ abundance.lineplot(
 \item{main.size}{The size of plot titles (default is 10).}
 }
 \value{
-A list of ggplot objects, each representing a line plot for abundance data of a species.
+A list of ggplot objects, each representing a line plot for abundance data of a species. In addition, the list includes a line plot for the sum of abundance of each class of lipid type, unsaturation, and carbon number.
 }
 \description{
-This function generates bar plots for abundance data.
+This function generates line plots for abundance data.
 }

@@ -18,7 +18,8 @@ QCplot(
   outlie.col = NA,
   outlie.shape = NA,
   heat.sample.name = c("default"),
-  heat.col = "Blues",
+  heat.start.col = "white",
+  heat.end.col = "#3E8BCA",
   heat.title = "Correlation Heatmap",
   group.show = TRUE,
   range.show = TRUE,
@@ -86,10 +87,9 @@ number of the groups. If not input, the color will be default values.}
 should equal the number of samples. This parameter can only change the sample name of
 heatmap. The default values are the column names of the data input.}
 
-\item{heat.col}{The color of the heatmap. The values can be "YlOrRd", "YlOrBr", "YlGnBu", "YlGn", "Reds",
-"RdPu", "Purples", "PuBuGn", "PuBu", "OrRd", "Oranges", "Greys", "Greens", "GnBu", "BuPu", "BuGn", "Blues".
-Use "RColorBrewer::display.brewer.all(type = "seq")" to show the colours and colour names. The default value
-is "Blues".}
+\item{heat.start.col}{The lightest color of the heatmap. The default value is "white".}
+
+\item{heat.end.col}{The deepest color of the heatmap. The default value is "#3E8BCA".}
 
 \item{heat.title}{The picture title of the heatmap. The default value is "Correlation Heatmap".}
 

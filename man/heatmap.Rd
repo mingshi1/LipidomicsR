@@ -7,7 +7,8 @@
 heatmap(
   data,
   group,
-  cluster = TRUE,
+  cluster_row = TRUE,
+  cluster_col = TRUE,
   sel.group = "default",
   constract = 8.5,
   type = "lipid",
@@ -45,8 +46,11 @@ The class of column name and row name should be "character". The class of values
 
 \item{group}{A vector defining which group the replicates belong to.}
 
-\item{cluster}{A boolean variable controlling whether to perfrom clustering to
-column variables (lipid abundance) or not. The default value is T.}
+\item{cluster_row}{A boolean variable controlling whether to perfrom clustering to
+row variables (lipid abundance) or not. The default value is TRUE.}
+
+\item{cluster_col}{A boolean variable controlling whether to perfrom clustering to
+column variables (lipid abundance) or not. The default value is TRUE.}
 
 \item{sel.group}{A vector containing the group you want to show in the heatmap.
 The input can be like c("WT","KO"). Default value is "default".}

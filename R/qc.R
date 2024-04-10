@@ -27,10 +27,8 @@
 #' @param heat.sample.name A vector containing the sample names, the length of "heat.sample.name"
 #' should equal the number of samples. This parameter can only change the sample name of
 #' heatmap. The default values are the column names of the data input.
-#' @param heat.col The color of the heatmap. The values can be "YlOrRd", "YlOrBr", "YlGnBu", "YlGn", "Reds",
-#' "RdPu", "Purples", "PuBuGn", "PuBu", "OrRd", "Oranges", "Greys", "Greens", "GnBu", "BuPu", "BuGn", "Blues".
-#' Use "RColorBrewer::display.brewer.all(type = "seq")" to show the colours and colour names. The default value
-#' is "Blues".
+#' @param heat.start.col The lightest color of the heatmap. The default value is "white".
+#' @param heat.end.col The deepest color of the heatmap. The default value is "#3E8BCA".
 #' @param heat.title The picture title of the heatmap. The default value is "Correlation Heatmap".
 #' @param group.show Whether to show the classification of different groups of the heatmap. The default value is TRUE.
 #' @param range.show Whether to show the range of PCA plot. The default value is TRUE.
@@ -68,11 +66,12 @@
 #' @import tidyr
 #' @import ggplot2
 #' @import ggiraph
+#' @import ggforce
 #' @importFrom stats quantile
 #' @export
 QCplot<-function(data,ptype,group,qcdt,box.sample.name=c("default"),box.x="sample",
                  box.y="abundance",box.title="",errorbar.show=TRUE,
-                 group.col=c("default"),outlie.col=NA,outlie.shape=NA,heat.sample.name=c("default"),heat.col="Blues",
+                 group.col=c("default"),outlie.col=NA,outlie.shape=NA,heat.sample.name=c("default"),heat.start.col="white",heat.end.col="#3E8BCA",
                  heat.title="Correlation Heatmap",group.show=TRUE, range.show=TRUE,range.alpha=0.25,
                  shape=TRUE,pca.title="PCA Scores Plot",point.size=3.5,point.t.size=1.5,point.t.color="grey25",point.t.overlap=200,
                  marked= c("A", "B","C"),combine=TRUE,title.hjust=0.5,title.vjust=0,title.size=15,a.title.size=13,a.text.size=8,
@@ -142,8 +141,8 @@ QCplot<-function(data,ptype,group,qcdt,box.sample.name=c("default"),box.x="sampl
       colnames(anno)=" "
       sampleDists <- dist(t(data))
       sampleDistMatrix <- as.matrix(sampleDists)
-      colors <- colorRampPalette(rev(RColorBrewer::brewer.pal(9, heat.col)) )(255)
-
+      # colors <- colorRampPalette(rev(RColorBrewer::brewer.pal(9, heat.col)) )(255)
+      colors <-colorRampPalette(c(heat.end.col, heat.start.col))(255)
       if(group.show){
         heat=pheatmap::pheatmap(sampleDistMatrix,
                                 annotation_row = anno,
@@ -193,10 +192,10 @@ QCplot<-function(data,ptype,group,qcdt,box.sample.name=c("default"),box.x="sampl
       if(range.show){
         if(shape){
           p.pca1 <- ggplot(data = df1,aes(x = .data$PC1,y = .data$PC2,color = anno$group,shape = anno$group))+
-            stat_ellipse(aes(fill = anno$group),level = 0.95,
-                         type = "norm",geom = "polygon",alpha = range.alpha,color = NA)+
-            # ggforce::geom_mark_ellipse(aes(fill = anno$group,
-            #                                color = anno$group)) +
+            # stat_ellipse(aes(fill = anno$group),level = 0.95,
+            #              type = "norm",geom = "polygon",alpha = range.alpha,color = NA)+
+            ggforce::geom_mark_ellipse(aes(fill = anno$group,
+                                           color = anno$group)) +
             geom_point(size = point.size)+
             labs(x = xlab1,y = ylab1,color = "Color",shape="Shape",title = pca.title)+
             guides(fill = "none")+
@@ -213,10 +212,10 @@ QCplot<-function(data,ptype,group,qcdt,box.sample.name=c("default"),box.x="sampl
                                                   label=rownames(df1)),colour = point.t.color,size=point.t.size,max.overlaps = point.t.overlap)
         }else{
           p.pca1 <- ggplot(data = df1,aes(x = .data$PC1,y = .data$PC2,color = anno$group))+
-            # ggforce::geom_mark_ellipse(aes(fill = anno$group,
-            #                                color = anno$group)) +
-            stat_ellipse(aes(fill = anno$group),level = 0.95,
-                         type = "norm",geom = "polygon",alpha = range.alpha,color = NA)+
+            ggforce::geom_mark_ellipse(aes(fill = anno$group,
+                                           color = anno$group)) +
+            # stat_ellipse(aes(fill = anno$group),level = 0.95,
+            #              type = "norm",geom = "polygon",alpha = range.alpha,color = NA)+
             geom_point(size = point.size)+
             labs(x = xlab1,y = ylab1,color = "",title = pca.title)+
             guides(fill = "none")+

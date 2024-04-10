@@ -8,7 +8,8 @@
 #' "numeric". The row names are recommended to be in a form like "PL(14:0/20:1)" or "LPL(16:1)".
 #' @param n The whole number of replicates in one group.
 #' @param m The number of replicates you want to delete.
-#'
+#' @param method The method to find the worst replicates, can be "PCA" or "Euclidean". Default value is "PCA".
+#' @param show.del Whether to show deleted columns. Default value is FALSE.
 #' @return A new dataframe deleting replicates which cause the largest SD.
 #' @examples
 #' WT_1=rnorm(n=5,mean=0.3,sd=0.1)
@@ -25,25 +26,49 @@
 #' m=1
 #' delRep(data,n,m)
 #' @export
-delRep<-function(data,n,m){
-  vec=c(1:n)
-  cob=t(combn(vec, (n-m),simplify = T))
+delRep<-function(data,n,m,method="PCA",show.del=FALSE){
   spdt=data.frame(species=rownames(data))
   rownames(spdt)=spdt$species
   spdt=spdt[,-1]
+  del=data.frame(species=rownames(data))
+  rownames(del)=del$species
+  del=del[,-1]
   for (i in 1:(ncol(data)/n) ){
     dt=data[,(n*i+1-n):(n*i)]
-    df=t(apply(dt,1,function(x) apply(cob,1,function(y) sd(as.data.frame(x)[as.vector(y),]))))
-    cm=t(apply(df, 1, function(x) t(as.data.frame(cob[which.min(x),]))))
-    sample=data.frame()
+    name=colnames(data[,(n*i+1-n):(n*i)])
+    if (method=="PCA"){
+      pdt=as.data.frame(prcomp(dt)$rotation)
+      c1=mean(pdt[,1])
+      c2=mean(pdt[,2])
+      pdt$res=0
+      for (a in 1:n){
+        pdt$res[a]=(pdt[a,1]-c1)^2+(pdt[a,2]-c2)^2
 
-    for (i in 1:length(rownames(cm))) {
-      sp=dt[i,as.vector(cm[i,])]
-      colnames(sp)=colnames(dt)[1:(n-m)]
-      sample=rbind(sample,sp)
+      }
+      avt=order(pdt$res,decreasing = TRUE)
+      res=dt[,-avt[1:m]]
+      colnames(res)=name[1:n-m]
+      dc=as.data.frame(dt[,avt[1:m]])
+      colnames(dc)=name[avt[1:m]]
+    }else{
+      ddt=as.matrix(dist(t(dt)))
+      avg_distances <- as.data.frame(colMeans(ddt))
+      avt=order(avg_distances$`colMeans(ddt)`,decreasing = TRUE)
+      res=dt[,-avt[1:m]]
+      colnames(res)=name[1:n-m]
+      dc=as.data.frame(dt[,avt[1:m]])
+      colnames(dc)=name[avt[1:m]]
     }
-    rownames(sample)=rownames(cm)
-    spdt=cbind(spdt,sample)
+    spdt=cbind(spdt,res)
+    del=cbind(del,dc)
   }
-  return(spdt)
+  if (show.del){
+    comb=list(results=spdt,deleted_data=del)
+    return(comb)
+  }else{
+    return(spdt)
   }
+  }
+
+
+

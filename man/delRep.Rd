@@ -4,7 +4,7 @@
 \alias{delRep}
 \title{delRep()}
 \usage{
-delRep(data, n, m)
+delRep(data, n, m, method = "PCA", show.del = FALSE)
 }
 \arguments{
 \item{data}{A dataframe storing concentration of lipids between different samples.
@@ -15,6 +15,10 @@ The class of column name and row name should be "character". The class of values
 \item{n}{The whole number of replicates in one group.}
 
 \item{m}{The number of replicates you want to delete.}
+
+\item{method}{The method to find the worst replicates, can be "PCA" or "Euclidean". Default value is "PCA".}
+
+\item{show.del}{Whether to show deleted columns. Default value is FALSE.}
 }
 \value{
 A new dataframe deleting replicates which cause the largest SD.

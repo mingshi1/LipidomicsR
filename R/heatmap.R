@@ -7,8 +7,10 @@
 #' The class of column name and row name should be "character". The class of values should be
 #' "numeric". The row names are recommended to be in a form like "PL(14:0/20:1)" or "LPL(16:1)".
 #' @param group A vector defining which group the replicates belong to.
-#' @param cluster A boolean variable controlling whether to perfrom clustering to
-#' column variables (lipid abundance) or not. The default value is T.
+#' @param cluster_col A boolean variable controlling whether to perfrom clustering to
+#' column variables (lipid abundance) or not. The default value is TRUE.
+#' @param cluster_row A boolean variable controlling whether to perfrom clustering to
+#' row variables (lipid abundance) or not. The default value is TRUE.
 #' @param sel.group A vector containing the group you want to show in the heatmap.
 #' The input can be like c("WT","KO"). Default value is "default".
 #' @param type Can accept 3 values: "lipid", "CB", or "sat". Default value is "lipid".
@@ -79,14 +81,14 @@
 #'group=rep(c("WT","KO","WT_treat","KO_treat"),each=4)
 #' heatmap(data,group)
 #' @export
-heatmap<-function(data,group,cluster=TRUE,sel.group="default", constract=8.5,
+heatmap<-function(data,group,cluster_row=TRUE,cluster_col=TRUE,sel.group="default", constract=8.5,
                   type="lipid",sel.type="default",sel.row=c("default"),annotation_legend=TRUE,
                   cellwidth = 20, cellheight = 15,gaps_row = c(0),gaps_col=c(0),
                   labels_row = c("default"),labels_col = c("default"),title="",show_rownames=TRUE,
                   show_colnames = TRUE,cellcolor=c("blue","black","yellow"),
                   legend = TRUE,border_color = NA,border = FALSE,cutree_rows = 1,
                   cutree_cols = 1,rtitle="group",ctitle=" ",fontsize_row=12,fontsize_col=12,fontsize=8){
-  bk <- c(seq(-10+constract,-0.1,by=0.01),seq(0,10-constract,by=0.01))
+  bk <- c(seq(-10.1+constract,-0.01,by=0.01),0,seq(0.01,10.1-constract,by=0.01))
   cellcolor=c(colorRampPalette(colors = cellcolor[1:2])(length(bk)/2),colorRampPalette(colors =cellcolor[2:3])(length(bk)/2))
   rn=rownames(data)
   data=apply(data,2,as.numeric)
@@ -144,26 +146,27 @@ heatmap<-function(data,group,cluster=TRUE,sel.group="default", constract=8.5,
   }else{}
   colnames(anno_col)=ctitle
   colnames(anno_row)=rtitle
-  if(cluster){
-    heat=pheatmap::pheatmap(as.matrix(df),cluster_row = cluster,cluster_cols = FALSE,annotation_legend=annotation_legend,
+  # if(cluster_row | cluster_col){
+    heat=pheatmap::pheatmap(as.matrix(df),cluster_row = cluster_row,cluster_cols = cluster_col,annotation_legend=annotation_legend,
                             cellwidth = cellwidth, cellheight = cellheight,labels_row = labels_row,labels_col = labels_col,
                             main = title,show_rownames=show_rownames,show_colnames = show_colnames,
                             color = cellcolor,annotation_row = anno_col,
-                            annotation_col =  anno_row,scale="row",
+                            annotation_col =  anno_row,scale="row",gaps_row = gaps_row,gaps_col=gaps_col,
                             breaks=bk,
                             legend = legend,border_color =border_color,border = border,cutree_rows = cutree_rows,
                             cutree_cols = cutree_cols,fontsize_row=fontsize_row,fontsize_col=fontsize_col,
                             fontsize=fontsize)%>%ggplotify::as.ggplot()
-  }else{
-    heat=pheatmap::pheatmap(as.matrix(df),cluster_row = cluster,cluster_cols = FALSE,annotation_legend=annotation_legend,
-                            cellwidth = cellwidth, cellheight = cellheight,gaps_row = gaps_row,
-                            gaps_col=gaps_col,labels_row = labels_row,labels_col = labels_col,scale="row",
-                            breaks=bk,
-                            main = title,show_rownames=show_rownames,show_colnames = show_colnames,
-                            color = cellcolor,annotation_row = anno_col,annotation_col = anno_row,
-                            legend = legend,border_color =border_color,border = border,fontsize_row=fontsize_row,fontsize_col=fontsize_col,
-                            fontsize=fontsize)%>%ggplotify::as.ggplot()
-  }
+  # }else{
+  #   heat=pheatmap::pheatmap(as.matrix(df),cluster_row = cluster_row,cluster_cols = cluster_col,annotation_legend=annotation_legend,
+  #                           cellwidth = cellwidth, cellheight = cellheight,gaps_row = gaps_row,
+  #                           gaps_col=gaps_col,labels_row = labels_row,labels_col = labels_col,scale="row",
+  #                           breaks=bk,cutree_rows = cutree_rows,
+  #                           cutree_cols = cutree_cols,
+  #                           main = title,show_rownames=show_rownames,show_colnames = show_colnames,
+  #                           color = cellcolor,annotation_row = anno_col,annotation_col = anno_row,
+  #                           legend = legend,border_color =border_color,border = border,fontsize_row=fontsize_row,fontsize_col=fontsize_col,
+  #                           fontsize=fontsize)%>%ggplotify::as.ggplot()
+  # }
 
 
   return(heat)
