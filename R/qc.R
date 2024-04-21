@@ -195,9 +195,9 @@ QCplot<-function(data,ptype,group,qcdt,box.sample.name=c("default"),box.x="sampl
             # stat_ellipse(aes(fill = anno$group),level = 0.95,
             #              type = "norm",geom = "polygon",alpha = range.alpha,color = NA)+
             ggforce::geom_mark_ellipse(aes(fill = anno$group,
-                                           color = anno$group)) +
+                                           color = anno$group),alpha = range.alpha,color = NA) +
             geom_point(size = point.size)+
-            labs(x = xlab1,y = ylab1,color = "Color",shape="Shape",title = pca.title)+
+            labs(x = xlab1,y = ylab1,color = "",shape="",title = pca.title)+
             guides(fill = "none")+
             theme_bw()+
             scale_fill_manual(values = col)+
@@ -213,7 +213,7 @@ QCplot<-function(data,ptype,group,qcdt,box.sample.name=c("default"),box.x="sampl
         }else{
           p.pca1 <- ggplot(data = df1,aes(x = .data$PC1,y = .data$PC2,color = anno$group))+
             ggforce::geom_mark_ellipse(aes(fill = anno$group,
-                                           color = anno$group)) +
+                                           color = anno$group),alpha = range.alpha,color = NA) +
             # stat_ellipse(aes(fill = anno$group),level = 0.95,
             #              type = "norm",geom = "polygon",alpha = range.alpha,color = NA)+
             geom_point(size = point.size)+

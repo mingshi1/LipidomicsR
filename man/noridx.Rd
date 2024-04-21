@@ -4,23 +4,26 @@
 \alias{noridx}
 \title{noridx()}
 \usage{
-noridx(data, normalization.mode='both', radio.data=NULL, qc= 1:5 ,qc.omit = 1,
+noridx(data, radio.data = NULL,
+normalization.mode='both',
+sample = 1:5, normalize_to = 2:5,
 Inlabel=c('PE(17:0/17:0)','PC(17:0/17:0)','PS(14:0/14:0)'),
-relative_as_default = TRUE,relative.mannual = NULL)
+relative_as_default = TRUE,
+relative.mannual = NULL)
 }
 \arguments{
 \item{data}{Data frame, row lipidomics data.}
-
-\item{normalization.mode}{Character. "absolute" tp output absolute normalization index
-'relative' to output relative normalization index. "both" to output both of them. Default as "both".}
 
 \item{radio.data}{Data frame. Characteristic of the radio label data.
 The row name must be the exact channel name of the label. Molecular mass should be
 provided in a column named "Mass". Concentration should be provided in a column named "Concentration(mg/ml)".}
 
-\item{qc}{Vector. Column of quantity control. Default as c(1:5).}
+\item{normalization.mode}{Character. "absolute" tp output absolute normalization index
+'relative' to output relative normalization index. "both" to output both of them. Default as "both".}
 
-\item{qc.omit}{Vector. Column of quantity control that need to be omitted, default as 1.}
+\item{sample}{Vector. Column of sample added with isotope label. Default as 2:5.}
+
+\item{normalize_to}{Vector. The column of samples that used as the standard for normalization.}
 
 \item{Inlabel}{Inlabel Vector. Name of Internal label. Default as c('PE(17:0/17:0)','PC(17:0/17:0)','PS(14:0/14:0)')}
 

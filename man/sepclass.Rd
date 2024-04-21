@@ -4,7 +4,7 @@
 \alias{sepclass}
 \title{sepclass()}
 \usage{
-sepclass(data, pattern)
+sepclass(data, pattern, subtype = FALSE)
 }
 \arguments{
 \item{data}{A dataframe storing concentration of lipids between different samples.
@@ -21,6 +21,9 @@ The class of column name and row name should be "character". The class of values
     If pattern="sat“, a new column named "unsaturation" will be added, which stores the number of double bonds. For example, the unsaturation of "PC(14:1/16:1)" is 1+1=2.
 
     If pattern="all“, all three columns will be added.}
+
+\item{subtype}{A logic value to determine for a lipid like "PC(O-14:0/16:1)", "lipid_type" should be
+"PC" (subtype=FALSE) or "PC(O)" (subtype=TRUE). Default value is FALSE.}
 }
 \value{
 A dataframe with new columns containing the class of lipid type, carbon number,
@@ -38,7 +41,7 @@ KO_1=rnorm(n=5,mean=0.3,sd=0.1)
 KO_2=rnorm(n=5,mean=0.3,sd=0.1)
 KO_3=rnorm(n=5,mean=0.3,sd=0.1)
 data=data.frame(WT_1,WT_2,WT_3,KO_1,KO_2,KO_3)
-rownames(data)=c("LPC(16:0)","PC(14:0/16:1)","PC(18:1/18:1)","PE(18:0/20:1)","PS(20:1/20:1)")
+rownames(data)=c("LPC(16:0)","PC(O-14:0/16:1)","TAG56:2-FA20:1","PE(P-18:0/20:1)","PS(20:1/20:1)")
 pattern="all" ## or "lipid", "CB", "sat"
 sepclass(data,pattern)
 }

@@ -4,14 +4,12 @@
 \alias{relative_calculator}
 \title{relative.calculator()}
 \usage{
-relative_calculator(data, relative.dataset, qc = 1:5)
+relative_calculator(data, relative.dataset)
 }
 \arguments{
 \item{data}{Row data of lipidomics}
 
 \item{relative.dataset}{Data frame. Normalization index.}
-
-\item{qc}{Numeric vector. The column of quality control.}
 }
 \value{
 Return a data frame of relative normalized lipidomic data.

@@ -4,16 +4,27 @@
 \alias{normalization_calculator}
 \title{normalization_calculator()}
 \usage{
-normalization_calculator(data, normalization.mode, normalization.index, qc=1:5)
+normalization_calculator(
+  data,
+  normalization.mode,
+  normalization.index,
+  delete.pattern = c("_\\\\d", "(\\\\+)AcO", "_n", "\\\\(\\\\d+\\\\)"),
+  group,
+  to
+)
 }
 \arguments{
 \item{data}{Data frame. Row lipidomic data.}
 
-\item{normalization.mode}{Vector. 'relative' for relative normalization. 'absolute' for absolute normalization.}
+\item{normalization.mode}{Vector. Options can be 'absolute', 'relative', 'TSA', 'toGroup'.}
 
 \item{normalization.index}{Data frame. normalization parameters, Suggested to be calculated by noridx.ouput()}
 
-\item{qc}{Numeric vector. column of quality control. Default as 1:5.}
+\item{delete.pattern}{Pattern of characters that needs to be removed.}
+
+\item{group}{Vector. The group information, recommended to be generated with groupXpert()}
+
+\item{to}{Character. The group to be normalized to.}
 }
 \value{
 A data frame of normalized data if either 'relative' or 'absolute' mode is used. A list if both of them are used.

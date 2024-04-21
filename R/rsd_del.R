@@ -27,7 +27,6 @@
 #' @export
 
 rsd_calculator<-function(data,start,end,threshold=0.2,show.del=FALSE,del.zero=TRUE){
-  data=na.omit(data)
   data[data=='N/A' | data == 'na' | data == 'NA'] <- NA
   data[is.na(data)] <- 0
   cal_dt=data[,c(start:end)]
@@ -38,7 +37,6 @@ rsd_calculator<-function(data,start,end,threshold=0.2,show.del=FALSE,del.zero=TR
   }
   cal_dt$rsd=rsd
   if (del.zero){
-
     data=data[!is.na(cal_dt$rsd),]
     cal_dt=cal_dt[!is.na(cal_dt$rsd),]
   }else{

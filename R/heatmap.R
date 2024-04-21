@@ -41,6 +41,8 @@
 #' @param show_colnames Whether to show column names or not. Default value is T.
 #' @param cellcolor The color range of cells in the heatmap. It should be input in a vector with
 #' three color values, such as c("blue","black","yellow").
+#' @param subtype A logic value to determine for a lipid like "PC(O-14:0/16:1)", "lipid_type" should be
+#' "PC" (subtype=FALSE) or "PC(O)" (subtype=TRUE). Default value is FALSE.
 #' @param legend Whether to show legends or not. Default value is FALSE.
 #' @param border_color Useful when border=T. Default value is NA.
 #' @param border Whether to show borders or not. Default value is TRUE.
@@ -83,7 +85,7 @@
 #' @export
 heatmap<-function(data,group,cluster_row=TRUE,cluster_col=TRUE,sel.group="default", constract=8.5,
                   type="lipid",sel.type="default",sel.row=c("default"),annotation_legend=TRUE,
-                  cellwidth = 20, cellheight = 15,gaps_row = c(0),gaps_col=c(0),
+                  cellwidth = 20, cellheight = 15,gaps_row = c(0),gaps_col=c(0),subtype=FALSE,
                   labels_row = c("default"),labels_col = c("default"),title="",show_rownames=TRUE,
                   show_colnames = TRUE,cellcolor=c("blue","black","yellow"),
                   legend = TRUE,border_color = NA,border = FALSE,cutree_rows = 1,
@@ -93,7 +95,7 @@ heatmap<-function(data,group,cluster_row=TRUE,cluster_col=TRUE,sel.group="defaul
   rn=rownames(data)
   data=apply(data,2,as.numeric)
   rownames(data)=rn
-  dt=sepclass(data,"all")
+  dt=sepclass(data,"all",subtype = subtype)
 
   if(sel.group!="default"){
     df=dt[,colnames(dt)%in%sel.group]
@@ -147,15 +149,15 @@ heatmap<-function(data,group,cluster_row=TRUE,cluster_col=TRUE,sel.group="defaul
   colnames(anno_col)=ctitle
   colnames(anno_row)=rtitle
   # if(cluster_row | cluster_col){
-    heat=pheatmap::pheatmap(as.matrix(df),cluster_row = cluster_row,cluster_cols = cluster_col,annotation_legend=annotation_legend,
-                            cellwidth = cellwidth, cellheight = cellheight,labels_row = labels_row,labels_col = labels_col,
-                            main = title,show_rownames=show_rownames,show_colnames = show_colnames,
-                            color = cellcolor,annotation_row = anno_col,
-                            annotation_col =  anno_row,scale="row",gaps_row = gaps_row,gaps_col=gaps_col,
-                            breaks=bk,
-                            legend = legend,border_color =border_color,border = border,cutree_rows = cutree_rows,
-                            cutree_cols = cutree_cols,fontsize_row=fontsize_row,fontsize_col=fontsize_col,
-                            fontsize=fontsize)%>%ggplotify::as.ggplot()
+  heat=pheatmap::pheatmap(as.matrix(df),cluster_row = cluster_row,cluster_cols = cluster_col,annotation_legend=annotation_legend,
+                          cellwidth = cellwidth, cellheight = cellheight,labels_row = labels_row,labels_col = labels_col,
+                          main = title,show_rownames=show_rownames,show_colnames = show_colnames,
+                          color = cellcolor,annotation_row = anno_col,
+                          annotation_col =  anno_row,scale="row",gaps_row = gaps_row,gaps_col=gaps_col,
+                          breaks=bk,
+                          legend = legend,border_color =border_color,border = border,cutree_rows = cutree_rows,
+                          cutree_cols = cutree_cols,fontsize_row=fontsize_row,fontsize_col=fontsize_col,
+                          fontsize=fontsize)%>%ggplotify::as.ggplot()
   # }else{
   #   heat=pheatmap::pheatmap(as.matrix(df),cluster_row = cluster_row,cluster_cols = cluster_col,annotation_legend=annotation_legend,
   #                           cellwidth = cellwidth, cellheight = cellheight,gaps_row = gaps_row,
@@ -171,4 +173,3 @@ heatmap<-function(data,group,cluster_row=TRUE,cluster_col=TRUE,sel.group="defaul
 
   return(heat)
 }
-

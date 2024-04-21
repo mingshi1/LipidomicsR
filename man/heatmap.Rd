@@ -19,6 +19,7 @@ heatmap(
   cellheight = 15,
   gaps_row = c(0),
   gaps_col = c(0),
+  subtype = FALSE,
   labels_row = c("default"),
   labels_col = c("default"),
   title = "",
@@ -82,6 +83,9 @@ You can set type="lipid", sel.type=c("PA","PC","PE")}
 \item{gaps_col}{To customize positions of column gaps. Default value is c(0).
 
 Notice: gaps_row and gaps_col are only useful when cluster=FALSE.}
+
+\item{subtype}{A logic value to determine for a lipid like "PC(O-14:0/16:1)", "lipid_type" should be
+"PC" (subtype=FALSE) or "PC(O)" (subtype=TRUE). Default value is FALSE.}
 
 \item{labels_row}{A vector contains the labels of each row of the heatmap.
 Default value is row names of dataframe input. It can be input like ("PE(20:1/20:1)","PS(16:0/18:1)","","","","LPA(18:0)")}

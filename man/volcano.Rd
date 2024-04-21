@@ -20,7 +20,8 @@ volcano(
   line.alpha = 0.4,
   line.color = "grey34",
   line.size = 1,
-  annotation = FALSE,
+  annotation.label = NULL,
+  annotation.color = "#C82423",
   text.size = 2.5,
   max.overlap = 40,
   title = NULL
@@ -57,7 +58,9 @@ volcano(
 
 \item{line.size}{The size of significance thresholds (default is 1).}
 
-\item{annotation}{Logical value indicating whether to add gene labels to the plot (default is FALSE).}
+\item{annotation.label}{The name of species that need to be annotated (default is NULL).}
+
+\item{annotation.color}{The color of the annotation points (default is '#C82423')}
 
 \item{text.size}{The size of gene labels (default is 1.5).}
 
@@ -66,7 +69,7 @@ volcano(
 \item{title}{The title for the plot (default is NULL).}
 }
 \value{
-A list containing the plot object, data frame with plotted points, and omitted data points.
+A list containing the plot object, data frame with plotted points, and omitted data points. If interact = TRUE, the html object of the interactive plot will be also returned.
 }
 \description{
 This function generates a volcano plot for differential expression analysis results.

@@ -62,20 +62,22 @@ FC_P <- function(compare1, compare2, p.adj = FALSE, method = 'fdr') {
 #' @param line.alpha The transparency level for significance thresholds (default is 0.4).
 #' @param line.color The color for significance thresholds (default is 'grey34').
 #' @param line.size The size of significance thresholds (default is 1).
-#' @param annotation Logical value indicating whether to add gene labels to the plot (default is FALSE).
+#' @param annotation.label The name of species that need to be annotated (default is NULL).
+#' @param annotation.color The color of the annotation points (default is '#C82423')
 #' @param text.size The size of gene labels (default is 1.5).
 #' @param max.overlap The maximum number of overlapping labels allowed (default is 40).
 #' @param title The title for the plot (default is NULL).
 #' @param interact Logical value indicating whteher to generate interactive volcano plot.
-#' @return A list containing the plot object, data frame with plotted points, and omitted data points.
+#' @return A list containing the plot object, data frame with plotted points, and omitted data points. If interact = TRUE, the html object of the interactive plot will be also returned.
 #' @importFrom ggplot2 ggplot geom_point geom_hline geom_vline scale_x_continuous scale_y_continuous theme_bw
 #' @importFrom dplyr filter
 #' @importFrom ggrepel geom_text_repel
 #' @export
-volcano <- function(data, x.scale,y.scale, interact=FALSE, FC.threshold=2, P.threshold = 0.05, change.label=c('Up','Down','Notsig'),
+volcano <- function(data, x.scale, y.scale, interact=FALSE, FC.threshold=2, P.threshold = 0.05, change.label=c('Up','Down','Notsig'),
                     point.size = 2, point.color = c('lightsalmon2','cadetblue','grey'),
                     x_scale_mannual = FALSE,  y_scale_mannual = FALSE,
-                    linetype= 4, line.alpha = .4, line.color= 'grey34', line.size = 1, annotation = FALSE,
+                    linetype= 4, line.alpha = .4, line.color= 'grey34', line.size = 1,
+                    annotation.label = NULL, annotation.color ='#C82423',
                     text.size = 2.5, max.overlap = 40, title= NULL){
   volc.data <- data
   volc.data_out <- volc.data %>% dplyr::filter(.data$Log2FC == Inf | .data$Log2FC == -Inf | .data$Log2FC == 'NaN' | .data$`-log10Pvalue` == NA) %>%
@@ -103,9 +105,13 @@ volcano <- function(data, x.scale,y.scale, interact=FALSE, FC.threshold=2, P.thr
     y.scale <- c(0,1.5*max(volc.data2$`-log10Pvalue`))
   }
 
-
-  vs<-ggplot(volc.data2,aes(volc.data2$Log2FC,volc.data2$`-log10Pvalue`))+
-    geom_point(size=point.size,aes(color=.data$Change))+
+  anno_data <- volc.data2[annotation.label,]
+  vs<-ggplot(setdiff(volc.data2, anno_data),aes(.data$Log2FC,.data$`-log10Pvalue`))+
+    geom_point(size = point.size, aes(color=.data$Change))+
+    geom_point(data = anno_data, aes(x = .data$Log2FC, y = .data$`-log10Pvalue`), size = point.size, color = annotation.color)+
+    geom_text_repel(data = anno_data, aes(x = .data$Log2FC, y = .data$`-log10Pvalue`, label = rownames(anno_data)),
+                                          size = text.size, max.overlaps = max.overlap)+
+    scale_color_manual(values= point.color)+
     scale_x_continuous(limits= x.scale)+
     scale_y_continuous(limits = y.scale)+
     geom_hline(yintercept = -log10(P.threshold),linetype= linetype,alpha= line.alpha,color=line.color, size = line.size)+
@@ -113,29 +119,22 @@ volcano <- function(data, x.scale,y.scale, interact=FALSE, FC.threshold=2, P.thr
     xlab(expression("log"[2]*" Fold Change"))+
     ylab(expression("-log"[10]*" P-value"))+
     labs(title = title)+
-    scale_color_manual(values= point.color)+
+
     theme_bw() +
     theme(panel.grid.major=element_line(colour=NA),
           panel.background = element_rect(fill = "transparent",colour = NA),
           plot.background = element_rect(fill = "transparent",colour = NA),
           panel.grid.minor = element_blank())
 
-  voldown<-subset(volc.data,volc.data$Change== change.label[2])
-  volup<-subset(volc.data,volc.data$Change==change.label[3])
-
-  if (annotation == TRUE) {
-    vs<-vs+ geom_text_repel(data=volup,aes(volup$Log2FC,volup$`-log10Pvalue`,
-                                           label=rownames(volup)),size=text.size,max.overlaps = max.overlap)+
-      geom_text_repel(data=voldown,aes(voldown$Log2FC,voldown$`-log10Pvalue`,
-                                       label=rownames(voldown)),size=text.size,max.overlaps = max.overlap )
-  }
   if (interact){
-    vs<-vs+ geom_point_interactive(data = volc.data2, size=point.size,aes(color=.data$Change,tooltip = rownames(volc.data2), data_id = volc.data2$Log2FC))
-    vs=girafe(print(vs),options = list(
-      opts_hover_inv(css="opacity:0.3;"),
-      opts_hover(css="fill:red")
+    vs2<-vs+ geom_point_interactive(data = volc.data2, size=point.size,aes(color=.data$Change,tooltip = rownames(volc.data2), data_id = volc.data2$Log2FC))+
+      geom_point(data = anno_data, aes(x = .data$Log2FC, y = .data$`-log10Pvalue`), size = point.size, color = annotation.color)
+    vs2 = girafe(print(vs2),options = list(
+          opts_hover_inv(css="opacity:0.3;"),
+          opts_hover(css="fill:red")
     ))
+  }else {
+    vs2 <- NULL
   }
-  return(list(plot = vs, row = volc.data2, omit = volc.data_out))
+  return(list(plot = vs, html = vs2, row = volc.data2, omit = volc.data_out))
 }
-

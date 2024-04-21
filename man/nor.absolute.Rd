@@ -4,7 +4,7 @@
 \alias{nor.absolute}
 \title{nor.absolute()}
 \usage{
-nor.absolute(data, radio.data = NULL, qc = 1:5, qc.omit = 1)
+nor.absolute(data, radio.data = NULL, sample = 2:5)
 }
 \arguments{
 \item{data}{Data frame, row lipidomics data.}
@@ -13,9 +13,7 @@ nor.absolute(data, radio.data = NULL, qc = 1:5, qc.omit = 1)
 The row name must be the exact channel name of the label. Molecular mass should be
 provided in a column named "Mass". Concentration should be provided in a column named "Concentration(mg/ml)".}
 
-\item{qc}{Vector. Column of quantity control. Default as c(1:5).}
-
-\item{qc.omit}{Vector. Column of quantity control that need to be omitted, default as 1.}
+\item{sample}{Vector. Column of sample added with isotope label. Default as 2:5.}
 }
 \value{
 Parameters for absolute normalization

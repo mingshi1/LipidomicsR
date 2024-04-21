@@ -7,6 +7,7 @@
 abundance.summary(
   data,
   group,
+  istotal = FALSE,
   .summary = function(x) mean(x),
   .error = function(x) sd(x)
 )
@@ -15,6 +16,8 @@ abundance.summary(
 \item{data}{The data frame containing abundance data.}
 
 \item{group}{A vector specifying the group membership for each sample.}
+
+\item{istotal}{Logical. If is true, the total summary table of lipid type, carbon number and unsaturation rate will be generated.}
 
 \item{.summary}{A function to summarize abundance data within each group (default is mean).}
 

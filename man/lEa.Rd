@@ -9,18 +9,15 @@ lEa(
   Inchannel = c("PC(15:0/18:1(d7))+AcO_1", "PE(15:0/18:1(d7))_2", "PS(15:0/18:1(d7))_2",
     "PG(15:0/18:1(d7))_2", "PI(15:0/18:1(d7))_2", "PA(15:0/18:1(d7))_2",
     "LPC18:1(d7)+AcO", "LPE18:1(d7)"),
-  qc = 1:5,
-  qc.omit = 1
+  sample = 2:5
 )
 }
 \arguments{
 \item{data}{Data frame. Row lipidomics data. Should be imported with importer().}
 
-\item{Inchannel}{Vector. Exact channel name for radio label data.}
+\item{Inchannel}{Vector. Exact channel name for isotope label data.}
 
-\item{qc}{Vector. Column of quantity control. Default as c(1:5).}
-
-\item{qc.omit}{Vector. Column of quantity control that need to be omitted, default as 1.}
+\item{sample}{Vector. Column of sample added with isotope label. Default as 2:5.}
 }
 \value{
 Data of internal label.

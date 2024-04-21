@@ -4,14 +4,12 @@
 \alias{absolute.calculator}
 \title{absolute.calculator()}
 \usage{
-absolute.calculator(data, absolute.dataset, qc = 1:5)
+absolute.calculator(data, absolute.dataset)
 }
 \arguments{
 \item{data}{Row data of lipidomics}
 
 \item{absolute.dataset}{Data frame. Normalization index.}
-
-\item{qc}{Numeric vector. The column of quality control.}
 }
 \value{
 Return a data frame of absolute normalized lipidomic data.

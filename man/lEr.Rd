@@ -16,7 +16,7 @@ lEr(
 
 \item{Inlabel}{Vector. Name of Internal label.}
 
-\item{relative_as_default}{Logical, default as TRUE for automatically searching for internal label data.}
+\item{relative_as_default}{Logical, default as TRUE for automatically searching for internal standard data.}
 
 \item{relative.mannual}{Vector, the exact channel name.}
 }

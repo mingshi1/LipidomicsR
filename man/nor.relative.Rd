@@ -7,7 +7,7 @@
 nor.relative(
   data,
   Inlabel = c("PE(17:0/17:0)", "PC(17:0/17:0)", "PS(14:0/14:0)"),
-  qc = 1:5,
+  normalize_to = 1:5,
   relative_as_default = TRUE,
   relative.mannual = NULL
 )
@@ -15,9 +15,9 @@ nor.relative(
 \arguments{
 \item{data}{Data frame, row lipidomics data.}
 
-\item{Inlabel}{Inlabel Vector. Name of Internal label. Default as c('PE(17:0/17:0)','PC(17:0/17:0)','PS(14:0/14:0)')}
+\item{Inlabel}{Vector. Name of Internal label. Default as c('PE(17:0/17:0)','PC(17:0/17:0)','PS(14:0/14:0)')}
 
-\item{qc}{Numeric value indicating the columns of quality control input.}
+\item{normalize_to}{Vector. The column of samples that used as the standard for normalization.}
 
 \item{relative_as_default}{Logical, default as TRUE for automatically searching for internal label data.}
 

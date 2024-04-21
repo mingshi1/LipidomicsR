@@ -7,6 +7,7 @@
 abundance.signif(
   data,
   group,
+  istotal = FALSE,
   by = data.frame(group = c(), variable.1 = c(), variable.2 = c())
 )
 }
@@ -14,6 +15,8 @@ abundance.signif(
 \item{data}{The data frame containing abundance data.}
 
 \item{group}{A vector specifying the group membership for each sample.}
+
+\item{istotal}{Logical. If is true, statistics based on total summary table of lipid type, carbon number and unsaturation rate will be generated.}
 
 \item{by}{A data frame specifying additional variables for the analysis.}
 }
